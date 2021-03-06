@@ -1,9 +1,10 @@
-package PicEditor.app;
+package com.example.piceditor;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -12,8 +13,8 @@ public class CanvasView extends View {
     private Paint  paint;
     private Path  path;
 
-    public CanvasView(Context context) {
-        super(context);
+    public CanvasView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         path = new Path();
 
         paint = new Paint();

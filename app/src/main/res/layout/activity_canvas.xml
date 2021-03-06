@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:txt="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#484D53">
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/sub"
+        android:textSize="30sp"
+        txt:layout_constraintBottom_toBottomOf="parent"
+        txt:layout_constraintHorizontal_bias="0.173"
+        txt:layout_constraintLeft_toLeftOf="parent"
+        txt:layout_constraintRight_toRightOf="parent"
+        txt:layout_constraintTop_toBottomOf="@+id/return_button"
+        txt:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/return_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#484D53"
+        android:text="＜"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        txt:layout_constraintBottom_toBottomOf="parent"
+        txt:layout_constraintHorizontal_bias="0.0"
+        txt:layout_constraintLeft_toLeftOf="parent"
+        txt:layout_constraintRight_toRightOf="parent"
+        txt:layout_constraintTop_toTopOf="parent"
+        txt:layout_constraintVertical_bias="0.0" />
+
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#484D53"
+        android:text="←"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        txt:layout_constraintBottom_toBottomOf="parent"
+        txt:layout_constraintEnd_toStartOf="@+id/seve_button"
+        txt:layout_constraintHorizontal_bias="0.232"
+        txt:layout_constraintLeft_toLeftOf="parent"
+        txt:layout_constraintRight_toRightOf="parent"
+        txt:layout_constraintTop_toTopOf="parent"
+        txt:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/seve_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#484D53"
+        android:text="□"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        txt:layout_constraintBottom_toBottomOf="parent"
+        txt:layout_constraintEnd_toStartOf="@+id/other_button"
+        txt:layout_constraintHorizontal_bias="0.498"
+        txt:layout_constraintLeft_toLeftOf="parent"
+        txt:layout_constraintRight_toRightOf="parent"
+        txt:layout_constraintTop_toTopOf="parent"
+        txt:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/other_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#484D53"
+        android:text="..."
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        txt:layout_constraintBottom_toBottomOf="parent"
+        txt:layout_constraintHorizontal_bias="1.0"
+        txt:layout_constraintLeft_toLeftOf="parent"
+        txt:layout_constraintRight_toRightOf="parent"
+        txt:layout_constraintTop_toTopOf="parent"
+        txt:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFFBFB"
+
+        android:contentDescription="@string/img_description"
+        android:scaleType="center"
+        android:scrollbars="vertical"
+        txt:layout_constraintBottom_toBottomOf="parent"
+        txt:layout_constraintTop_toBottomOf="@+id/text3"
+        txt:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="10dp" />
+
+
+    <com.example.piceditor.CanvasView
+        android:layout_width="match_parent"
+        android:layout_height="329dp"
+        android:background="#FFFBFB"
+        txt:activity="com.example.piceditor.MainActivity"
+        txt:color="#f00"
+        txt:layout_constraintEnd_toEndOf="parent"
+        txt:layout_constraintStart_toStartOf="parent"
+        txt:layout_constraintTop_toBottomOf="@+id/image_view"
+        txt:size="20dp"
+        txt:text="MainActivityに遷移" />
+</androidx.constraintlayout.widget.ConstraintLayout>

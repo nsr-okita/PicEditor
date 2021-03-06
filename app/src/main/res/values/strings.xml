@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PicEditor</string>
+    <string name="main">PicEditor</string>
+    <string name="move">＋</string>
+    <string name="sub">Sub Activity</string>
+    <string name="return_sub">RETURN</string>
+    <string name="img_description">image</string>
 </resources>
