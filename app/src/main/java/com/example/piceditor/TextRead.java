@@ -58,7 +58,7 @@ public class TextRead {
         return readTextStr;
     }
 
-    // ファイルを保存
+    // ファイルを保存(write_flg true:上書き　false:追記)
     public void saveFile(String save_str,boolean write_flg){
         //ローカルファイルにテキストを保存
         try {

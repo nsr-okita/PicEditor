@@ -32,7 +32,7 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         txt:layout_constraintBottom_toBottomOf="parent"
-        txt:layout_constraintEnd_toStartOf="@+id/seve_button"
+        txt:layout_constraintEnd_toStartOf="@+id/save_button"
         txt:layout_constraintHorizontal_bias="0.232"
         txt:layout_constraintLeft_toLeftOf="parent"
         txt:layout_constraintRight_toRightOf="parent"
@@ -40,7 +40,7 @@
         txt:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/seve_button"
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#484D53"
@@ -70,29 +70,15 @@
         txt:layout_constraintTop_toTopOf="parent"
         txt:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="252dp"
-        android:background="#FFFBFB"
-
-        android:contentDescription="@string/img_description"
-        android:scaleType="center"
-        android:scrollbars="vertical"
-        txt:layout_constraintBottom_toBottomOf="parent"
-        txt:layout_constraintStart_toStartOf="parent"
-        txt:layout_constraintTop_toBottomOf="@+id/back_button"
-        txt:layout_constraintVertical_bias="0.0" />
-
     <com.example.piceditor.CanvasView
         android:layout_width="match_parent"
-        android:layout_height="329dp"
+        android:layout_height="450dp"
         android:background="#FFFBFB"
         txt:activity="com.example.piceditor.MainActivity"
         txt:color="#f00"
         txt:layout_constraintEnd_toEndOf="parent"
         txt:layout_constraintStart_toStartOf="parent"
-        txt:layout_constraintTop_toBottomOf="@+id/image_view"
+        txt:layout_constraintTop_toBottomOf="@+id/back_button"
         txt:size="20dp"
         txt:text="MainActivityに遷移" />
 </androidx.constraintlayout.widget.ConstraintLayout>
