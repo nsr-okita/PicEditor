@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-public class PenPaint extends BasePaint{
+public class PenPaint{
     protected Paint paint;
     protected Path  Peint_Path;
 
@@ -49,7 +49,6 @@ public class PenPaint extends BasePaint{
         Peint_GreenValue = _g;
         Peint_BlueValue = _b;
     }
-    @Override
     public void Init(){
         paint = new Paint();
 
@@ -61,7 +60,6 @@ public class PenPaint extends BasePaint{
         PenWidth = 10;
     }
 
-    @Override
     public void draw(Canvas canvas){
         //ペンの色を設定
         paint.setColor(Color.argb(Peint_AlphaValue,Peint_RedValue,Peint_GreenValue,Peint_BlueValue));

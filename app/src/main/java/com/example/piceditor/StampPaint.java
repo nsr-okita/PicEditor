@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public class StampPaint extends BasePaint{
+public class StampPaint{
     protected Rect src = new Rect();
     protected Rect dst = new Rect();	//表示先
     protected int BmpPoint_x,BmpPoint_y;
@@ -38,7 +38,6 @@ public class StampPaint extends BasePaint{
     public int getMidX(){return DrowPoint_x-(DrowSize_w/2);}
     public int getMidY(){return DrowPoint_y-(DrowSize_h/2);}
 
-    @Override
     public void Init() {
         BmpPoint_x = 0;
         BmpPoint_y = 0;
@@ -80,7 +79,6 @@ public class StampPaint extends BasePaint{
         DrowSize_h = height;
     }
 
-    @Override
     public void draw(Canvas canvas) {
         src.set(BmpPoint_x, BmpPoint_y, BmpPoint_x+BmpSize_w, BmpPoint_y+BmpSize_h);
         dst.set(getMidX(), getMidY(), DrowSize_w+getMidX(), DrowSize_h+getMidY());
