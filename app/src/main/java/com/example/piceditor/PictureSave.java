@@ -1,6 +1,8 @@
 package com.example.piceditor;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,14 +15,17 @@ public class PictureSave {
     public PictureSave(){}
     public void Init(){}
 
-    public String saveAsPngImage(String filePath,Bitmap basebitmap){
+    public String saveAsPngImage(Context context,String filePath,Bitmap basebitmap){
         String fileName = null;
+        String mimetype = "image/png";
         try {
             fileName = getFileName();
             File file = new File(filePath, fileName);
             FileOutputStream outStream = new FileOutputStream(file);
             basebitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
             outStream.close();
+            // ギャラリーに表示させる
+            MediaScannerConnection.scanFile( context,new String[] { file.getPath() }, new String[] { mimetype },null);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -29,12 +34,15 @@ public class PictureSave {
         return fileName;
     }
 
-    public void saveAsPngImage(String filePath,String fileName,Bitmap basebitmap){
+    public void saveAsPngImage(Context context,String filePath,String fileName,Bitmap basebitmap){
         try {
+            String mimetype = "image/png";
             File file = new File(filePath, fileName);
             FileOutputStream outStream = new FileOutputStream(file);
             basebitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
             outStream.close();
+            // ギャラリーに表示させる
+            MediaScannerConnection.scanFile( context,new String[] { file.getPath() }, new String[] { mimetype },null);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

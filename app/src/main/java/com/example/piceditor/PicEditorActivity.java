@@ -101,10 +101,10 @@ public class PicEditorActivity  extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int idx) {
                 PictureSave picture= new PictureSave();
-                ShareInfo.SaveFileName = picture.saveAsPngImage(ShareInfo.SaveFilePath, ShareInfo.Basebitmap);
+                ShareInfo.SaveFileName = picture.saveAsPngImage(getApplicationContext(),ShareInfo.SaveFilePath, ShareInfo.Basebitmap);
                 TextRead file = new TextRead();
                 file.Init(getApplicationContext(),"Last_file_data.txt",2);
-                file.saveFile(ShareInfo.SaveFilePath + "/" + ShareInfo.SaveFileName + "\n",false);
+                file.saveFile(ShareInfo.SaveFileName + "\n",false);
             }
         });
         //「いいえ」をタッチしたときの処理
