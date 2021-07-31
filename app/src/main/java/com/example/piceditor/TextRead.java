@@ -89,7 +89,7 @@ public class TextRead {
             String tmp;
             int i = 0;
             while((tmp = reader.readLine()) != null){
-                readTextStr[i] = tmp + "\n";
+                readTextStr[i] = tmp;
             }
             reader.close();
         }catch( IOException e ){

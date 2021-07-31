@@ -46,7 +46,7 @@
         android:layout_margin="10dp"
         android:scrollbars="vertical"
         android:background="#838793"
-        android:text="C:/temp/basegame/app/src/main"
+        android:text=""
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

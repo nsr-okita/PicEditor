@@ -1,6 +1,8 @@
 package com.example.piceditor;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Environment;
 
 public class ShareInfo {
@@ -9,4 +11,6 @@ public class ShareInfo {
     static String SaveFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_PICTURES; // 保存するファイルパス
     static String SaveFileName = "test.png"; // 保存するファイル名
     static Bitmap Basebitmap = null;
+    static Uri LoadFileUri = null; // 読込ファイル
+    static Point RealSize = null; // 画面サイズ
 }
