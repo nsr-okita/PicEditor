@@ -3,6 +3,8 @@ package com.example.piceditor;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,7 +20,6 @@ public class PicEditorActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setScreenEditor();
     }
 
@@ -51,9 +52,7 @@ public class PicEditorActivity  extends AppCompatActivity {
         otherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // タッチ時にペイント種別を変える(仮)
-                ShareInfo.peintType = ShareInfo.peintType + 1;
-                ShareInfo.peintType = ShareInfo.peintType % 2;
+                OtherDialog();
             }
         });
     }
@@ -117,5 +116,35 @@ public class PicEditorActivity  extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         //ダイアログを表示する
         dialog.show();
+    }
+
+    //その他ダイアログ
+    private void OtherDialog() {
+        // タッチ時にペイント種別を変える(仮)
+        final String[] items = {"ペン", "スタンプ", "色調補正"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //ダイアログのメッセージを設定
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // item_which pressed
+                ShareInfo.peintType = which;
+            }
+        });
+        AlertDialog dialog = builder.create();
+
+        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        lp.gravity = Gravity.TOP;      //画面上部に
+        dialog.getWindow().setAttributes(lp);
+        dialog.show(); //ここでad.show();とすると通常の表示になってしまう
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            EditEndDialog();
+            return true;
+        }
+        return false;
     }
 }

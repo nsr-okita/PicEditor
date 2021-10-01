@@ -1,104 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#484D53"
+    android:background="@color/base_color"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/title"
+    <!-- タイトル表示レイアウト -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center_horizontal"
-        android:text="@string/main"
-        android:textColor="#FFFFFF"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="3">
+        <!-- タイトル-->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:text="@string/main"
+            android:textColor="#FFFFFF"
+            app:autoSizeTextType="uniform"
+            android:layout_weight="1" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/lastFilePathtext"
+    <!-- 余白 -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="前回編集したファイル"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.115" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="2">
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/lastFilePath"
+    <!-- 前回ファイルの読込レイアウト -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="10dp"
-        android:scrollbars="vertical"
-        android:background="#838793"
-        android:text=""
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastFilePathtext"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="5">
+        <!-- 文字表示(前回編集したファイル) -->
+        <TextView
+            android:id="@+id/lastFilePathtext"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="前回編集したファイル"
+            android:textColor="#FFFFFF"
+            app:autoSizeTextType="uniform"
+            android:layout_weight="1" />
+        <!--ファイル名表示 -->
+        <TextView
+            android:id="@+id/lastFilePath"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            android:background="#838793"
+            android:text=""
+            android:textColor="#FFFFFF"
+            app:autoSizeTextType="uniform"
+            android:layout_weight="4" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/newFile"
+    <!-- 余白 -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="新規ファイル読込"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastFilePath"
-        app:layout_constraintVertical_bias="0.123" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/send_button"
+    <!-- 新規ファイル読込レイアウト -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="#20DF28"
-        android:text="@string/move"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newFile"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="3">
+        <!-- 文字表示(新規ファイル読込) -->
+        <TextView
+            android:id="@+id/newFile"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="新規ファイル読込"
+            android:textColor="#FFFFFF"
+            app:autoSizeTextType="uniform"
+            android:layout_weight="1" />
+        <!-- 新規ファイル読込)ボタン-->
+        <com.example.piceditor.AlphaButton
+            android:id="@+id/send_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/send_button_color"
+            android:text="@string/move"
+            android:textColor="#FFFFFF"
+            app:autoSizeTextType="uniform"
+            android:layout_weight="2" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/Copyright"
+    <!-- 余白 -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="©2020-2021 NSR_In-house training team."
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="16">
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- コピーライトレイアウト -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <!-- コピーライト表示 -->
+        <TextView
+            android:id="@+id/Copyright"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:text="©2020-2021 NSR_In-house training team."
+            android:textColor="#FFFFFF"
+            app:autoSizeTextType="uniform"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>
