@@ -1,0 +1,8 @@
+face.png
+nikukyu.png
+diamond.png
+heart.png
+star.png
+waku.png
+!.png
+fish_baramutsu.png

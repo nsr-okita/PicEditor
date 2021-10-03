@@ -47,6 +47,16 @@ public class PicEditorActivity  extends AppCompatActivity {
             }
         });
 
+        //隠しボタンの設定
+        Button subButton = findViewById(R.id.sub_button);
+        subButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareInfo.stampNo = ShareInfo.stampNo + 1;
+                ShareInfo.stampNo = ShareInfo.stampNo % ShareInfo.stampMaxNo;
+            }
+        });
+
         //その他ボタン(...)の設定
         Button otherButton = findViewById(R.id.other_button);
         otherButton.setOnClickListener(new View.OnClickListener() {

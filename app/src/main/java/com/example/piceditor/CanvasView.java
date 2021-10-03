@@ -8,51 +8,82 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class CanvasView extends View implements
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
     private int RedValue = 0;
-    private Bitmap Stamp = null;
+    private Bitmap basePicture = null;
     private PenPaint  penPaint;
     private StampPaint testStamp;
     private Canvas canvas;
+    private ArrayList<Bitmap> StampBmpList = new ArrayList<Bitmap>();
 
     GestureDetector gestureDetector = null;
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
         penPaint = new PenPaint();
+        testStamp = new StampPaint();
+
+        // スタンプのリストを作成
+        TextRead stampStrList = new TextRead();
+        stampStrList.Init(context,"stamplist.txt");
+        ArrayList<String> strlist = new ArrayList<String>();
+        strlist = stampStrList.readAssetFile();
+
         //ビットマップファイルの読込処理を行う。
         PictureRead readStamp = new PictureRead();
         readStamp.Init(context);
         ShareInfo.Basebitmap = null;
+
         //ビットマップファイルを取得する。
-        Stamp = readStamp.readAssetFile("Stamp.png");
+        int stampNum = 0;
+        for (String str : strlist) {
+            if(str.isEmpty() == false) {
+                //スタンプを登録する
+                StampBmpList.add(readStamp.readAssetFile(str));
+                stampNum = stampNum + 1;
+            }
+        }
+        ShareInfo.stampNo = 0;
+        ShareInfo.stampMaxNo = stampNum;
+
+        if(ShareInfo.FileDrowType == 1) {
+            //ビットマップファイルの読込処理を行う。
+            PictureRead readFile = new PictureRead();
+            readFile.Init(context);
+            basePicture = readFile.readBitmapFile(ShareInfo.LoadFileUri);
+        }
+
         gestureDetector = new GestureDetector(context, this);
     }
 
-    /*
-    public void saveAsPngImage(){
-        try {
-            ShareInfo.SaveFileName = getFileName();
-            File extStrageDir = Environment.getExternalStorageDirectory();
-            File file = new File(ShareInfo.SaveFilePath, ShareInfo.SaveFileName);
-            FileOutputStream outStream = new FileOutputStream(file);
-            ShareInfo.Basebitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public Bitmap bitmapResize(Bitmap readPicture,int viewWidth, int viewHeight) {
+        // リサイズ比
+        double resizeScale;
+        int widthScale = readPicture.getWidth();
+        int heightScale = readPicture.getHeight();
+        // 横長画像の場合
+        if (readPicture.getWidth() >= readPicture.getHeight()) {
+            resizeScale = (double) viewWidth / readPicture.getWidth();
         }
+        // 縦長画像の場合
+        else {
+            resizeScale = (double) viewHeight / readPicture.getHeight();
+        }
+
+        widthScale = (int) (readPicture.getWidth() * resizeScale);
+        heightScale = (int) (readPicture.getHeight() * resizeScale);
+
+        // リサイズ
+        Bitmap afterResizeBitmap = Bitmap.createScaledBitmap(readPicture,
+                widthScale,
+                heightScale,
+                true);
+        return afterResizeBitmap;
     }
-    public String getFileName(){
-        Date date = new Date(); // 今日の日付
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        String strDate = dateFormat.format(date)+ ".png";
-        return strDate;
-    }
-    */
 
     @Override
     protected void onDraw(Canvas canvas) {          //描画処理
@@ -68,7 +99,14 @@ public class CanvasView extends View implements
         super.onSizeChanged(w, h, oldw, oldh);
         ShareInfo.Basebitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(ShareInfo.Basebitmap);
-        canvas.drawColor(0xFFFFFFFF);
+        if(ShareInfo.FileDrowType == 1) {
+            //前回のファイルを取得した場合(仮実装)
+            basePicture = bitmapResize(basePicture, w, h);
+            canvas.drawBitmap(basePicture, 0, 0, null);
+        }else{
+            //ファイル選択で取得した場合(仮実装)
+            canvas.drawColor(0xFFFFFFFF);
+        }
     }
 
     @Override
@@ -140,11 +178,9 @@ public class CanvasView extends View implements
             //ペイントタイプがスタンプの時、スタンプを設定する
             testStamp = new StampPaint();
             //描画するビットマップファイルを登録する。
-            testStamp.setStampBmp(Stamp);
-            //使用するビットマップファイルの切取位置を設定する。
-            testStamp.setStampBmpSize_BmpPoint(0,32,64,64);
+            testStamp.setStampBmp(StampBmpList.get(ShareInfo.stampNo));
             //描画する位置とサイズを設定する
-            testStamp.setStampDrawPoint_DrawSize((int) x, (int) y, 100, 100);
+            testStamp.setStampDrawHeightScale((int) x, (int) y,100);
             //スタンプの描画を登録する。
             testStamp.draw(canvas);
             //画面の再描画を依頼する。

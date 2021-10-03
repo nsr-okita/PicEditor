@@ -11,16 +11,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class TextRead {
     public TextRead(){}
     private String filename;
     public String[] readTextStr;
+    private ArrayList<String> readTextList;
     private Context context;
     public void Init(Context contextInit,String name,int lineNum){
         context = contextInit;
         filename = name;
         readTextStr = new String[lineNum];
+    }
+
+    public void Init(Context contextInit,String name){
+        context = contextInit;
+        filename = name;
+        readTextList = new ArrayList<String>();
     }
 
     public void SetFilename(String name) {
@@ -30,7 +38,7 @@ public class TextRead {
         return filename;
     }
 
-    public String[] readAssetFile() {
+    public ArrayList<String> readAssetFile() {
         //アセットマネージャーのテキストファイルを読み込む
         AssetManager assetManager = context.getResources().getAssets();
         try {
@@ -39,12 +47,9 @@ public class TextRead {
             BufferedReader buffReader = new BufferedReader(new InputStreamReader(inputStream));
 
             String s;
-            int i = 0;
-
             while( (s = buffReader.readLine()) != null )
             {
-                readTextStr[i] = s;
-                i++;
+                readTextList.add(s);
             }
 
             buffReader.close();
@@ -55,7 +60,7 @@ public class TextRead {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return readTextStr;
+        return readTextList;
     }
 
     // ファイルを保存(write_flg true:上書き　false:追記)
