@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -11,15 +12,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
+	private static final int REQUEST_GALLERY = 0;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -51,13 +55,19 @@ public class MainActivity extends AppCompatActivity {
         ShareInfo.LastFile = file.readFile()[0];
 
         TextView lastTextFile = findViewById(R.id.lastFilePath);
-        lastTextFile.setText(ShareInfo.LastFile);
+        if(ShareInfo.LastFile != null) {
+            lastTextFile.setText(ShareInfo.SaveFilePath + "/" + ShareInfo.LastFile);
+        }
         //前回編集したファイルのファイル名がTextViewの枠内に入らなかったときにスクロールする。
         lastTextFile.setMovementMethod(new ScrollingMovementMethod());
         lastTextFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+				//前回編集したファイル名タッチイベント
                 if(ShareInfo.LastFile != null) {
+					ShareInfo.FileDrowType = 1;
+                    File file = new File(ShareInfo.SaveFilePath, ShareInfo.LastFile);
+                    ShareInfo.LoadFileUri = Uri.fromFile(file);
                     Intent intent = new Intent(getApplication(), PicEditorActivity.class);
                     startActivity(intent);
                     finish();
@@ -71,9 +81,19 @@ public class MainActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), PicEditorActivity.class);
-                startActivity(intent);
-                finish();
+                //「+」ボタンタッチイベント
+                ShareInfo.FileDrowType = 1;
+                if(ShareInfo.FileDrowType == 0) {
+                    //読み込まない設定
+                    Intent intent = new Intent(getApplication(), PicEditorActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(ShareInfo.FileDrowType == 1) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, REQUEST_GALLERY);
+                }
             }
         });
     }
@@ -95,5 +115,16 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         //ダイアログを表示する
         dialog.show();
+	}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK) {
+            ShareInfo.LoadFileUri = data.getData(); //追加
+            Intent intent = new Intent(getApplication(), PicEditorActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
