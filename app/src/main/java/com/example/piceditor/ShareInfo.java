@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.os.Environment;
 
 public class ShareInfo {
-    static int peintType = 0; // ペイントタイプ 0:ペン 1:スタンプ
+    static int peintType = 3; // ペイントタイプ 0:ペン 1:スタンプ
     static int stampNo = 0; // スタンプ番号
     static int stampMaxNo = 0; // スタンプ最大番号
     static String LastFile = null; // 前回編集したファイル

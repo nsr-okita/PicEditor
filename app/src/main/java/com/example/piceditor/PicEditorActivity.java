@@ -27,6 +27,8 @@ public class PicEditorActivity  extends AppCompatActivity {
     private void setScreenEditor(){
         setContentView(R.layout.activity_canvas);
 
+        FunctionVisible();
+
         //編集終了ボタン(＜)の設定
         Button returnButton = findViewById(R.id.return_button);
         returnButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +65,46 @@ public class PicEditorActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OtherDialog();
+            }
+        });
+
+        //ペンボタンの設定
+        Button penButton = findViewById(R.id.setPen_button);
+        penButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareInfo.peintType = 0;
+                FunctionVisible();
+            }
+        });
+
+        // 色調補正ボタンの設定
+        Button toneButton = findViewById(R.id.setColorTone_button);
+        toneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareInfo.peintType = 2;
+                FunctionVisible();
+            }
+        });
+
+        //スタンプボタンの設定
+        Button stampButton = findViewById(R.id.setStamp_button);
+        stampButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareInfo.peintType = 1;
+                FunctionVisible();
+            }
+        });
+
+        //トリミングボタンの設定
+        Button trimmingButton = findViewById(R.id.trimming_button);
+        trimmingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareInfo.peintType = 3;
+                FunctionVisible();
             }
         });
     }
@@ -139,6 +181,7 @@ public class PicEditorActivity  extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // item_which pressed
                 ShareInfo.peintType = which;
+                FunctionVisible();
             }
         });
         AlertDialog dialog = builder.create();
@@ -147,6 +190,32 @@ public class PicEditorActivity  extends AppCompatActivity {
         lp.gravity = Gravity.TOP;      //画面上部に
         dialog.getWindow().setAttributes(lp);
         dialog.show(); //ここでad.show();とすると通常の表示になってしまう
+    }
+
+    // 機能表示・非表示
+    private void FunctionVisible() {
+        switch (ShareInfo.peintType) {
+            case 0:
+                findViewById(R.id.pen_panel).setVisibility(View.VISIBLE);
+                findViewById(R.id.tone_panel).setVisibility(View.INVISIBLE);
+                findViewById(R.id.stamp_panel).setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                findViewById(R.id.pen_panel).setVisibility(View.INVISIBLE);
+                findViewById(R.id.tone_panel).setVisibility(View.INVISIBLE);
+                findViewById(R.id.stamp_panel).setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                findViewById(R.id.pen_panel).setVisibility(View.INVISIBLE);
+                findViewById(R.id.tone_panel).setVisibility(View.VISIBLE);
+                findViewById(R.id.stamp_panel).setVisibility(View.INVISIBLE);
+                break;
+            default:
+                findViewById(R.id.pen_panel).setVisibility(View.INVISIBLE);
+                findViewById(R.id.tone_panel).setVisibility(View.INVISIBLE);
+                findViewById(R.id.stamp_panel).setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 
     @Override

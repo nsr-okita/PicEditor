@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/base_color">
-    <Button
+    <com.example.piceditor.AlphaButton
         android:id="@+id/trimming_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         txt:layout_constraintHorizontal_chainStyle="spread"
         />
 
-    <Button
+    <com.example.piceditor.AlphaButton
         android:id="@+id/setPen_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         txt:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <Button
+    <com.example.piceditor.AlphaButton
         android:id="@+id/setColorTone_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         txt:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <Button
+    <com.example.piceditor.AlphaButton
         android:id="@+id/setStamp_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -468,11 +468,119 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp1_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp2_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp3_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp4_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp5_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp6_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp7_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp8_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp9_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp10_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp11_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
+            <com.example.piceditor.AlphaImageButton
+                android:id="@+id/stamp12_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="#C0C0C0"
+                android:scaleType="fitCenter"/>
         </TableRow>
     </TableLayout>
 
