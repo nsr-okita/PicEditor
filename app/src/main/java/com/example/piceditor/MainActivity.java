@@ -12,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 				//前回編集したファイル名タッチイベント
                 if(ShareInfo.LastFile != null) {
-					ShareInfo.FileDrowType = 1;
                     File file = new File(ShareInfo.SaveFilePath, ShareInfo.LastFile);
                     ShareInfo.LoadFileUri = Uri.fromFile(file);
                     Intent intent = new Intent(getApplication(), PicEditorActivity.class);
@@ -82,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //「+」ボタンタッチイベント
-                ShareInfo.FileDrowType = 1;
                 if(ShareInfo.FileDrowType == 0) {
                     //読み込まない設定
                     Intent intent = new Intent(getApplication(), PicEditorActivity.class);
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK) {
-            ShareInfo.LoadFileUri = data.getData(); //追加
+            ShareInfo.LoadFileUri = data.getData();
             Intent intent = new Intent(getApplication(), PicEditorActivity.class);
             startActivity(intent);
             finish();

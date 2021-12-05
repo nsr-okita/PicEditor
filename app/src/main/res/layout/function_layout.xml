@@ -1,71 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:txt="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/base_color">
-    <com.example.piceditor.AlphaButton
-        android:id="@+id/trimming_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#777777"
-        android:text="トリミング"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_marginBottom="2dp"
-        txt:layout_constraintStart_toStartOf="parent"
-        txt:layout_constraintEnd_toStartOf="@+id/setPen_button"
-        txt:layout_constraintBottom_toBottomOf="parent"
-        txt:layout_constraintHorizontal_chainStyle="spread"
-        />
-
-    <com.example.piceditor.AlphaButton
-        android:id="@+id/setPen_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#777777"
-        android:text="ペン"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginRight="1dp"
-        txt:layout_constraintStart_toEndOf="@+id/trimming_button"
-        txt:layout_constraintEnd_toStartOf="@+id/setColorTone_button"
-        txt:layout_constraintBottom_toBottomOf="parent"
-        />
-
-    <com.example.piceditor.AlphaButton
-        android:id="@+id/setColorTone_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#777777"
-        android:text="色調補正"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginRight="2dp"
-        txt:layout_constraintStart_toEndOf="@+id/setPen_button"
-        txt:layout_constraintEnd_toStartOf="@+id/setStamp_button"
-        txt:layout_constraintBottom_toBottomOf="parent"
-        />
-
-    <com.example.piceditor.AlphaButton
-        android:id="@+id/setStamp_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#777777"
-        android:text="スタンプ"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_marginBottom="2dp"
-        txt:layout_constraintStart_toEndOf="@+id/setColorTone_button"
-        txt:layout_constraintEnd_toEndOf="parent"
-        txt:layout_constraintBottom_toBottomOf="parent"
-        />
 
     <!-- ペン設定 -->
     <TableLayout
@@ -74,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#777777"
-        android:layout_marginBottom="2dp"
-        txt:layout_constraintBottom_toTopOf="@+id/trimming_button"
+        txt:layout_constraintBottom_toBottomOf="parent"
         >
 
         <TableRow
@@ -85,7 +23,7 @@
                 android:id="@+id/pen_save_button"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                android:layout_margin="5dp"
                 android:background="#C0C0C0"
                 android:text="完了"
                 android:textColor="#FFFFFF"
@@ -259,8 +197,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#777777"
-        android:layout_marginBottom="2dp"
-        txt:layout_constraintBottom_toTopOf="@+id/trimming_button"
+        txt:layout_constraintBottom_toBottomOf="parent"
         >
 
         <TableRow
@@ -444,8 +381,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#777777"
-        android:layout_marginBottom="2dp"
-        txt:layout_constraintBottom_toTopOf="@+id/trimming_button"
+        txt:layout_constraintBottom_toBottomOf="parent"
         >
 
         <TableRow

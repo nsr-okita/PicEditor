@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:txt="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_color">
+
+    <!-- 画面上部のボタンレイアウト -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <!-- トリミング設定 -->
+        <com.example.piceditor.AlphaButton
+            android:id="@+id/trimming_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="#777777"
+            android:text="トリミング"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <!-- ペン設定 -->
+        <com.example.piceditor.AlphaButton
+            android:id="@+id/setPen_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="#777777"
+            android:text="ペン"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <!-- 色調補正設定 -->
+        <com.example.piceditor.AlphaButton
+            android:id="@+id/setColorTone_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="#777777"
+            android:text="色調補正"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <!-- スタンプ設定 -->
+        <com.example.piceditor.AlphaButton
+            android:id="@+id/setStamp_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:background="#777777"
+            android:text="スタンプ"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

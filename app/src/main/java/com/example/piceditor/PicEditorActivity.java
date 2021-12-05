@@ -119,7 +119,7 @@ public class PicEditorActivity  extends AppCompatActivity {
         builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int idx) {
-                ShareInfo.peintType = 0;
+                ShareInfo.peintType = 3;
                 //ボタンタップでスタート画面に遷移
                 Intent intent = new Intent(getApplication(), MainActivity.class);
                 startActivity(intent);

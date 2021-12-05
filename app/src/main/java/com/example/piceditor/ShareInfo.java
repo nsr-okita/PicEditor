@@ -17,6 +17,6 @@ public class ShareInfo {
     static Bitmap Basebitmap = null;
     static Uri LoadFileUri = null; // 読込ファイル
     static Point RealSize = null; // 画面サイズ
-    static int FileDrowType = 0; //  0:ファイル選択 1:ファイル指定
+    static int FileDrowType = 1; //  0:ファイル選択 1:ファイル指定
     static ArrayList<Bitmap> StampBmpList = null;
 }
