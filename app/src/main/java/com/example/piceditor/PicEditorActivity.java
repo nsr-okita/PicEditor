@@ -2,6 +2,7 @@ package com.example.piceditor;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -9,9 +10,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class PicEditorActivity  extends AppCompatActivity {
 
@@ -20,6 +24,7 @@ public class PicEditorActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        StampButtonInit();
         setScreenEditor();
     }
 
@@ -46,16 +51,6 @@ public class PicEditorActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 //ダイアログを表示
                 EditSaveDialog();
-            }
-        });
-
-        //隠しボタンの設定
-        Button subButton = findViewById(R.id.sub_button);
-        subButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShareInfo.stampNo = ShareInfo.stampNo + 1;
-                ShareInfo.stampNo = ShareInfo.stampNo % ShareInfo.stampMaxNo;
             }
         });
 
@@ -107,6 +102,9 @@ public class PicEditorActivity  extends AppCompatActivity {
                 FunctionVisible();
             }
         });
+
+        // スタンプタッチ
+        StampTouchSet();
     }
 
     //編集終了ダイアログ
@@ -215,6 +213,66 @@ public class PicEditorActivity  extends AppCompatActivity {
                 findViewById(R.id.tone_panel).setVisibility(View.INVISIBLE);
                 findViewById(R.id.stamp_panel).setVisibility(View.INVISIBLE);
                 break;
+        }
+    }
+
+    // スタンプ画像の設定
+    private void StampButtonInit() {
+        ShareInfo.StampBmpList = new ArrayList<Bitmap>();
+        // スタンプのリストを作成
+        TextRead stampStrList = new TextRead();
+        stampStrList.Init(this,"stamplist.txt");
+        ArrayList<String> strList = new ArrayList<String>();
+        strList = stampStrList.readAssetFile();
+
+        //ビットマップファイルの読込処理を行う。
+        PictureRead readStamp = new PictureRead();
+        readStamp.Init(this);
+
+        //ビットマップファイルを取得する。
+        int stampNum = 0;
+        for (String str : strList) {
+            if(str.isEmpty() == false) {
+                //スタンプを登録する
+                ShareInfo.StampBmpList.add(readStamp.readAssetFile(str));
+                stampNum = stampNum + 1;
+            }
+        }
+        ShareInfo.stampMaxNo = stampNum;
+    }
+
+    // ボタンの画像を設定とタッチ時の動作
+    private void StampTouchSet() {
+        int stampButtonMax = 12;
+        ImageButton[] stampButton = new ImageButton[stampButtonMax];
+        stampButton[0] = findViewById(R.id.stamp1_button);
+        stampButton[1] = findViewById(R.id.stamp2_button);
+        stampButton[2] = findViewById(R.id.stamp3_button);
+        stampButton[3] = findViewById(R.id.stamp4_button);
+        stampButton[4] = findViewById(R.id.stamp5_button);
+        stampButton[5] = findViewById(R.id.stamp6_button);
+        stampButton[6] = findViewById(R.id.stamp7_button);
+        stampButton[7] = findViewById(R.id.stamp8_button);
+        stampButton[8] = findViewById(R.id.stamp9_button);
+        stampButton[9] = findViewById(R.id.stamp10_button);
+        stampButton[10] = findViewById(R.id.stamp11_button);
+        stampButton[11] = findViewById(R.id.stamp12_button);
+
+        int bmpNum = 0;
+        for (Bitmap bmp : ShareInfo.StampBmpList) {
+            final int finalBmpNum = bmpNum;
+            stampButton[bmpNum].setImageBitmap(ShareInfo.StampBmpList.get(bmpNum));
+            stampButton[bmpNum].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ShareInfo.stampNo = finalBmpNum;
+                }
+            });
+            bmpNum++;
+            if(bmpNum >= stampButtonMax){
+                break;
+            }
         }
     }
 

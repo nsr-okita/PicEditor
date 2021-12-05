@@ -8,8 +8,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.ArrayList;
-
 public class CanvasView extends View implements
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
@@ -18,7 +16,6 @@ public class CanvasView extends View implements
     private PenPaint  penPaint;
     private StampPaint testStamp;
     private Canvas canvas;
-    private ArrayList<Bitmap> StampBmpList = new ArrayList<Bitmap>();
 
     GestureDetector gestureDetector = null;
 
@@ -27,28 +24,9 @@ public class CanvasView extends View implements
         penPaint = new PenPaint();
         testStamp = new StampPaint();
 
-        // スタンプのリストを作成
-        TextRead stampStrList = new TextRead();
-        stampStrList.Init(context,"stamplist.txt");
-        ArrayList<String> strlist = new ArrayList<String>();
-        strlist = stampStrList.readAssetFile();
-
-        //ビットマップファイルの読込処理を行う。
-        PictureRead readStamp = new PictureRead();
-        readStamp.Init(context);
         ShareInfo.Basebitmap = null;
 
-        //ビットマップファイルを取得する。
-        int stampNum = 0;
-        for (String str : strlist) {
-            if(str.isEmpty() == false) {
-                //スタンプを登録する
-                StampBmpList.add(readStamp.readAssetFile(str));
-                stampNum = stampNum + 1;
-            }
-        }
         ShareInfo.stampNo = 0;
-        ShareInfo.stampMaxNo = stampNum;
 
         if(ShareInfo.FileDrowType == 1) {
             //ビットマップファイルの読込処理を行う。
@@ -178,7 +156,7 @@ public class CanvasView extends View implements
             //ペイントタイプがスタンプの時、スタンプを設定する
             testStamp = new StampPaint();
             //描画するビットマップファイルを登録する。
-            testStamp.setStampBmp(StampBmpList.get(ShareInfo.stampNo));
+            testStamp.setStampBmp(ShareInfo.StampBmpList.get(ShareInfo.stampNo));
             //描画する位置とサイズを設定する
             testStamp.setStampDrawHeightScale((int) x, (int) y,100);
             //スタンプの描画を登録する。

@@ -5,6 +5,8 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
 
+import java.util.ArrayList;
+
 public class ShareInfo {
     static int peintType = 3; // ペイントタイプ 0:ペン 1:スタンプ
     static int stampNo = 0; // スタンプ番号
@@ -16,4 +18,5 @@ public class ShareInfo {
     static Uri LoadFileUri = null; // 読込ファイル
     static Point RealSize = null; // 画面サイズ
     static int FileDrowType = 0; //  0:ファイル選択 1:ファイル指定
+    static ArrayList<Bitmap> StampBmpList = null;
 }
