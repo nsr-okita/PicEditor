@@ -258,6 +258,8 @@ public class PicEditorActivity  extends AppCompatActivity {
         stampButton[10] = findViewById(R.id.stamp11_button);
         stampButton[11] = findViewById(R.id.stamp12_button);
 
+        StampUpdateDisplay();
+
         int bmpNum = 0;
         for (Bitmap bmp : ShareInfo.StampBmpList) {
             final int finalBmpNum = bmpNum;
@@ -265,14 +267,44 @@ public class PicEditorActivity  extends AppCompatActivity {
             stampButton[bmpNum].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     ShareInfo.stampNo = finalBmpNum;
+                    StampUpdateDisplay();
                 }
             });
             bmpNum++;
             if(bmpNum >= stampButtonMax){
                 break;
             }
+        }
+    }
+
+    // 設定中のスタンプを設定中と前面に表示する
+    private void StampUpdateDisplay() {
+        int stampButtonMax = 12;
+        ImageButton[] stampButton = new ImageButton[stampButtonMax];
+        stampButton[0] = findViewById(R.id.stamp1_button);
+        stampButton[1] = findViewById(R.id.stamp2_button);
+        stampButton[2] = findViewById(R.id.stamp3_button);
+        stampButton[3] = findViewById(R.id.stamp4_button);
+        stampButton[4] = findViewById(R.id.stamp5_button);
+        stampButton[5] = findViewById(R.id.stamp6_button);
+        stampButton[6] = findViewById(R.id.stamp7_button);
+        stampButton[7] = findViewById(R.id.stamp8_button);
+        stampButton[8] = findViewById(R.id.stamp9_button);
+        stampButton[9] = findViewById(R.id.stamp10_button);
+        stampButton[10] = findViewById(R.id.stamp11_button);
+        stampButton[11] = findViewById(R.id.stamp12_button);
+
+        int bmpNum = 0;
+        while(bmpNum < stampButtonMax){
+            if(ShareInfo.stampNo == bmpNum) {
+                stampButton[bmpNum].setForeground(getDrawable(R.drawable.setting));
+            }
+            else
+            {
+                stampButton[bmpNum].setForeground(null);
+            }
+            bmpNum++;
         }
     }
 

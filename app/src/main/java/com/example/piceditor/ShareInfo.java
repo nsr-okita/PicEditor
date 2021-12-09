@@ -1,7 +1,6 @@
 package com.example.piceditor;
 
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
 
@@ -16,7 +15,6 @@ public class ShareInfo {
     static String SaveFileName = "test.png"; // 保存するファイル名
     static Bitmap Basebitmap = null;
     static Uri LoadFileUri = null; // 読込ファイル
-    static Point RealSize = null; // 画面サイズ
-    static int FileDrowType = 1; //  0:ファイル選択 1:ファイル指定
+    static int FileDrowType = 1; //  0:ファイル指定なし 1:ファイル指定
     static ArrayList<Bitmap> StampBmpList = null;
 }

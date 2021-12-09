@@ -17,6 +17,9 @@ public class CanvasView extends View implements
     private StampPaint testStamp;
     private Canvas canvas;
 
+    private float CanvasDrawX = 0; // 画像表示座標(横)
+    private float CanvasDrawY = 0; // 画像表示座標(縦)
+
     GestureDetector gestureDetector = null;
 
     public CanvasView(Context context, AttributeSet attrs) {
@@ -27,12 +30,14 @@ public class CanvasView extends View implements
         ShareInfo.Basebitmap = null;
 
         ShareInfo.stampNo = 0;
+        CanvasDrawX = 0;
+        CanvasDrawY = 0;
 
         if(ShareInfo.FileDrowType == 1) {
             //ビットマップファイルの読込処理を行う。
             PictureRead readFile = new PictureRead();
             readFile.Init(context);
-            basePicture = readFile.readBitmapFile(ShareInfo.LoadFileUri);
+            basePicture = readFile.readBitmapFileRotate(ShareInfo.LoadFileUri);
         }
 
         gestureDetector = new GestureDetector(context, this);
@@ -65,7 +70,11 @@ public class CanvasView extends View implements
 
     @Override
     protected void onDraw(Canvas canvas) {          //描画処理
+        if(ShareInfo.FileDrowType == 1) {
+            canvas.translate(CanvasDrawX,CanvasDrawY);
+        }
         canvas.drawBitmap(ShareInfo.Basebitmap, 0, 0, null);
+
         if(ShareInfo.peintType == 0) {
             //ペイントタイプがペンの時、描画登録前のペンを描画する。
             penPaint.draw(canvas);
@@ -75,22 +84,27 @@ public class CanvasView extends View implements
     @Override
     protected void onSizeChanged(int w, int h,int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        ShareInfo.Basebitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(ShareInfo.Basebitmap);
+
         if(ShareInfo.FileDrowType == 1) {
-            //前回のファイルを取得した場合(仮実装)
+            //ファイル選択で取得した場合
             basePicture = bitmapResize(basePicture, w, h);
+
+            CanvasDrawX = (w/2) - (basePicture.getWidth()/2);
+            CanvasDrawY = (h/2) - (basePicture.getHeight()/2);
+            ShareInfo.Basebitmap = Bitmap.createBitmap(basePicture.getWidth(), basePicture.getHeight(), Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(ShareInfo.Basebitmap);
             canvas.drawBitmap(basePicture, 0, 0, null);
         }else{
-            //ファイル選択で取得した場合(仮実装)
+            ShareInfo.Basebitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(ShareInfo.Basebitmap);
             canvas.drawColor(0xFFFFFFFF);
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
+        float x = event.getX() - (CanvasDrawX / 2);
+        float y = event.getY() - (CanvasDrawY / 2);
 
         event.setLocation(x,y);
         gestureDetector.onTouchEvent(event);
@@ -123,6 +137,7 @@ public class CanvasView extends View implements
                     penPaint.setPenPoint(x,y);
                     //ペンの描画を登録する
                     penPaint.draw(canvas);
+                    penPaint = new PenPaint();
                     break;
             }
             //画面の再描画を依頼する。
@@ -149,8 +164,8 @@ public class CanvasView extends View implements
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {		//画面を押したときに実行
-        float x = motionEvent.getX();
-        float y = motionEvent.getY();
+        float x = motionEvent.getX() - (CanvasDrawX / 2);
+        float y = motionEvent.getY() - (CanvasDrawY / 2);
 
         if(ShareInfo.peintType == 1) {
             //ペイントタイプがスタンプの時、スタンプを設定する
