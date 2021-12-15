@@ -4,14 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class CanvasView extends View implements
-        GestureDetector.OnGestureListener,
-        GestureDetector.OnDoubleTapListener {
+public class CanvasView extends View {
     private int RedValue = 0;
+    private int BlueValue = 0;
+    private int GreenValue = 0;
     private Bitmap basePicture = null;
     private PenPaint  penPaint;
     private StampPaint testStamp;
@@ -19,8 +18,6 @@ public class CanvasView extends View implements
 
     private float CanvasDrawX = 0; // 画像表示座標(横)
     private float CanvasDrawY = 0; // 画像表示座標(縦)
-
-    GestureDetector gestureDetector = null;
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,8 +36,6 @@ public class CanvasView extends View implements
             readFile.Init(context);
             basePicture = readFile.readBitmapFileRotate(ShareInfo.LoadFileUri);
         }
-
-        gestureDetector = new GestureDetector(context, this);
     }
 
     public Bitmap bitmapResize(Bitmap readPicture,int viewWidth, int viewHeight) {
@@ -103,107 +98,101 @@ public class CanvasView extends View implements
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX() - (CanvasDrawX / 2);
-        float y = event.getY() - (CanvasDrawY / 2);
+        float x = event.getX() - CanvasDrawX;
+        float y = event.getY() - CanvasDrawY;
 
-        event.setLocation(x,y);
-        gestureDetector.onTouchEvent(event);
-
-        if(ShareInfo.peintType == 0) {
-            //ペイントタイプがペンの時の設定を行う
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    //画面をタッチさしたとき
-                    //ペンのRed値を決める(仮)
-                    RedValue = RedValue + 100;
-                    if(RedValue > 255) {
-                        RedValue = 0;
-                    }
-
-                    penPaint = new PenPaint();
-                    //ペンのRGB値を設定する
-                    penPaint.setPenRGBValue(RedValue,0,0);
-                    //ペンの開始位置を決める
-                    penPaint.setPenStart(x,y);
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    //タッチしたまま動かしたとき
-                    //ペンの移動した位置を取得する
-                    penPaint.setPenPoint(x,y);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    //放したとき
-                    //ペンの移動した位置を取得する
-                    penPaint.setPenPoint(x,y);
-                    //ペンの描画を登録する
-                    penPaint.draw(canvas);
-                    penPaint = new PenPaint();
-                    break;
-            }
-            //画面の再描画を依頼する。
-            this.invalidate();
+        //ペイントタイプがペンの時の設定を行う
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                //画面をタッチさしたとき
+                TouchEvent_Down(x,y);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                //タッチしたまま動かしたとき
+                TouchEvent_Move(x,y);
+                break;
+            case MotionEvent.ACTION_UP:
+                //放したとき
+                TouchEvent_Up(x,y);
+                break;
         }
+        //画面の再描画を依頼する。
+        this.invalidate();
 
         return true;
     }
 
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent motionEvent) {		//シングルタップの時には呼び出されるがダブルタップのとき反応しない
-        return false;
-    }
+    private void TouchEvent_Down(float x,float y){
+        //画面をタッチさしたときの処理
+        switch (ShareInfo.peintType) {
+            case 0:
+                //ペンのRed値を決める(仮)
+                RedValue = RedValue + 100;
+                if(RedValue > 255) {
+                    RedValue = 0;
+                }
 
-    @Override
-    public boolean onDoubleTap(MotionEvent motionEvent) {		//2回タップしたとき
-        return false;
-    }
-
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent motionEvent) {		//ダブルタッチしたときに他の作業したとき
-        return false;
-    }
-
-    @Override
-    public boolean onDown(MotionEvent motionEvent) {		//画面を押したときに実行
-        float x = motionEvent.getX() - (CanvasDrawX / 2);
-        float y = motionEvent.getY() - (CanvasDrawY / 2);
-
-        if(ShareInfo.peintType == 1) {
-            //ペイントタイプがスタンプの時、スタンプを設定する
-            testStamp = new StampPaint();
-            //描画するビットマップファイルを登録する。
-            testStamp.setStampBmp(ShareInfo.StampBmpList.get(ShareInfo.stampNo));
-            //描画する位置とサイズを設定する
-            testStamp.setStampDrawHeightScale((int) x, (int) y,100);
-            //スタンプの描画を登録する。
-            testStamp.draw(canvas);
-            //画面の再描画を依頼する。
-            this.invalidate();
+                penPaint = new PenPaint();
+                //ペンのRGB値を設定する
+                penPaint.setPenRGBValue(RedValue,GreenValue,BlueValue);
+                //ペンの開始位置を決める
+                penPaint.setPenStart(x,y);
+                break;
+            case 1:
+                //ペイントタイプがスタンプの時、スタンプを設定する
+                testStamp = new StampPaint();
+                //描画するビットマップファイルを登録する。
+                testStamp.setStampBmp(ShareInfo.StampBmpList.get(ShareInfo.stampNo));
+                //描画する位置とサイズを設定する
+                testStamp.setStampDrawHeightScale((int)x,(int)y,100);
+                //スタンプの描画を登録する。
+                testStamp.draw(canvas);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
         }
-        return false;
     }
 
-    @Override
-    public void onShowPress(MotionEvent motionEvent) {	//押したとき（すぐに離すとダメ）
-
+    private void TouchEvent_Move(float x,float y){
+        //タッチしたまま動かしたときの処理
+        switch (ShareInfo.peintType) {
+            case 0:
+                //ペンの移動した位置を取得する
+                penPaint.setPenPoint(x,y);
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
     }
 
-    @Override
-    public boolean onSingleTapUp(MotionEvent motionEvent) {	//すぐに離されたとき
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {			//押したまま動かす
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent motionEvent) {			//一定時間押されたとき
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {		//はじいたとき引数（,,X軸の加速度,Y軸の加速度）
-        return false;
+    private void TouchEvent_Up(float x,float y){
+        //放したときの処理
+        switch (ShareInfo.peintType) {
+            case 0:
+                //ペンの移動した位置を取得する
+                penPaint.setPenPoint(x,y);
+                //ペンの描画を登録する
+                penPaint.draw(canvas);
+                penPaint = new PenPaint();
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
     }
 }
