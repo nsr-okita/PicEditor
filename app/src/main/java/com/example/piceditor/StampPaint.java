@@ -9,8 +9,8 @@ public class StampPaint{
     protected Rect dst = new Rect();	//表示先
     protected int BmpPoint_x,BmpPoint_y; // 元画像の切り取り位置
     protected int BmpSize_w,BmpSize_h; // 元画像の切り取りサイズ
-    protected int DrowPoint_x,DrowPoint_y; // 表示位置
-    protected int DrowSize_w,DrowSize_h; // 表示サイズ
+    protected int DrawPoint_x,DrawPoint_y; // 表示位置
+    protected int DrawSize_w,DrawSize_h; // 表示サイズ
     protected Bitmap bmp;
 
     public StampPaint(){Init();}
@@ -19,10 +19,10 @@ public class StampPaint{
     public void setStampBmpWidth(int width){BmpSize_w = width;}
     public void setStampBmpHeight(int height){BmpSize_h = height;}
 
-    public void setStampDrawPointX(int x){DrowPoint_x = x;}
-    public void setStampDrawPointY(int y){DrowPoint_y = y;}
-    public void setStampDrawWidth(int width){DrowSize_w = width;}
-    public void setStampDrawHeight(int height){DrowSize_h = height;}
+    public void setStampDrawPointX(int x){DrawPoint_x = x;}
+    public void setStampDrawPointY(int y){DrawPoint_y = y;}
+    public void setStampDrawWidth(int width){DrawSize_w = width;}
+    public void setStampDrawHeight(int height){DrawSize_h = height;}
 
     // ビットマップを登録する
     public void setStampBmp(Bitmap _bmp){
@@ -38,22 +38,23 @@ public class StampPaint{
     public int getStampBmpWidth(){return BmpSize_w;}
     public int getStampBmpHeight(){return BmpSize_h;}
 
-    public int getStampDrawPointX(){return DrowPoint_x;}
-    public int getStampDrawPointY(){return DrowPoint_y;}
-    public int getStampDrawWidth(){return DrowSize_w;}
-    public int getStampDrawHeight(){return DrowSize_h;}
-    public int getMidX(){return DrowPoint_x-(DrowSize_w/2);}
-    public int getMidY(){return DrowPoint_y-(DrowSize_h/2);}
+    public int getStampDrawPointX(){return DrawPoint_x;}
+    public int getStampDrawPointY(){return DrawPoint_y;}
+    public int getStampDrawWidth(){return DrawSize_w;}
+    public int getStampDrawHeight(){return DrawSize_h;}
+    public int getMidX(){return DrawPoint_x-(DrawSize_w/2);}
+    public int getMidY(){return DrawPoint_y-(DrawSize_h/2);}
 
     public void Init() {
         BmpPoint_x = 0;
         BmpPoint_y = 0;
         BmpSize_w=0;
         BmpSize_h=0;
-        DrowSize_w=48;
-        DrowSize_h=48;
-        DrowPoint_x=0;
-        DrowPoint_y=0;
+        DrawSize_w=48;
+        DrawSize_h=48;
+        DrawPoint_x=0;
+        DrawPoint_y=0;
+        bmp = null;
     }
 
     // 元画像の切り取り位置を設定
@@ -78,48 +79,50 @@ public class StampPaint{
 
     // 表示位置を設定
     public void setStampDrawPoint(int x,int y) {
-        DrowPoint_x = x;
-        DrowPoint_y = y;
+        DrawPoint_x = x;
+        DrawPoint_y = y;
     }
 
     // 表示サイズを設定
     public void setStampDrawSize(int width,int height) {
-        DrowSize_w = width;
-        DrowSize_h = height;
+        DrawSize_w = width;
+        DrawSize_h = height;
     }
     // 表示サイズ・位置を設定
     public void setStampDrawPoint_DrawSize(int x,int y,int width,int height) {
-        DrowPoint_x = x;
-        DrowPoint_y = y;
-        DrowSize_w = width;
-        DrowSize_h = height;
+        DrawPoint_x = x;
+        DrawPoint_y = y;
+        DrawSize_w = width;
+        DrawSize_h = height;
     }
 
     // 表示サイズ(高さを基準に変更)・位置を設定
     public void setStampDrawHeightScale(int x,int y,int heightScale) {
-        DrowPoint_x = x;
-        DrowPoint_y = y;
+        DrawPoint_x = x;
+        DrawPoint_y = y;
         // リサイズ比
         double resizeScale;
         resizeScale = (double) heightScale / bmp.getHeight();
-        DrowSize_w =  (int) (bmp.getWidth()*resizeScale);
-        DrowSize_h = (int) (bmp.getHeight()*resizeScale);
+        DrawSize_w =  (int) (bmp.getWidth()*resizeScale);
+        DrawSize_h = (int) (bmp.getHeight()*resizeScale);
     }
 
     // 表示サイズ(高さを基準に変更)・位置を設定
     public void setStampDrawWidthScale(int x,int y,int widthScale) {
-        DrowPoint_x = x;
-        DrowPoint_y = y;
+        DrawPoint_x = x;
+        DrawPoint_y = y;
         // リサイズ比
         double resizeScale;
         resizeScale = (double) widthScale / bmp.getHeight();
-        DrowSize_w =  (int) (bmp.getWidth()*resizeScale);
-        DrowSize_h = (int) (bmp.getHeight()*resizeScale);
+        DrawSize_w =  (int) (bmp.getWidth()*resizeScale);
+        DrawSize_h = (int) (bmp.getHeight()*resizeScale);
     }
 
     public void draw(Canvas canvas) {
-        src.set(BmpPoint_x, BmpPoint_y, BmpPoint_x+BmpSize_w, BmpPoint_y+BmpSize_h);
-        dst.set(getMidX(), getMidY(), DrowSize_w+getMidX(), DrowSize_h+getMidY());
-        canvas.drawBitmap(bmp, src, dst, null);	//（,元の画像の表示元,出力領域,）
+        if(bmp != null) {
+            src.set(BmpPoint_x, BmpPoint_y, BmpPoint_x + BmpSize_w, BmpPoint_y + BmpSize_h);
+            dst.set(getMidX(), getMidY(), DrawSize_w + getMidX(), DrawSize_h + getMidY());
+            canvas.drawBitmap(bmp, src, dst, null);    //（,元の画像の表示元,出力領域,）
+        }
     }
 }

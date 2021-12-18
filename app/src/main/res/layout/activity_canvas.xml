@@ -25,7 +25,7 @@
         android:layout_weight="9">
 
         <com.example.piceditor.CanvasView
-            android:id="@+id/castom_View"
+            android:id="@+id/custom_View"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#FFFBFB"

@@ -15,9 +15,12 @@ public class CanvasView extends View {
     private PenPaint  penPaint;
     private StampPaint testStamp;
     private Canvas canvas;
+    private int errorStatus = 0;
 
     private float CanvasDrawX = 0; // 画像表示座標(横)
     private float CanvasDrawY = 0; // 画像表示座標(縦)
+
+    public int getErrorStatus(){return errorStatus;}
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,6 +38,9 @@ public class CanvasView extends View {
             PictureRead readFile = new PictureRead();
             readFile.Init(context);
             basePicture = readFile.readBitmapFileRotate(ShareInfo.LoadFileUri);
+            if(basePicture == null){
+                errorStatus = 1;
+            }
         }
     }
 
@@ -80,7 +86,7 @@ public class CanvasView extends View {
     protected void onSizeChanged(int w, int h,int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        if(ShareInfo.FileDrowType == 1) {
+        if(ShareInfo.FileDrowType == 1 && basePicture != null) {
             //ファイル選択で取得した場合
             basePicture = bitmapResize(basePicture, w, h);
 

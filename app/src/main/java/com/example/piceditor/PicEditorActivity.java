@@ -32,6 +32,11 @@ public class PicEditorActivity  extends AppCompatActivity {
     private void setScreenEditor(){
         setContentView(R.layout.activity_canvas);
 
+        CanvasView canvasView = findViewById(R.id.custom_View);
+        if(canvasView.getErrorStatus() != 0){
+            EditErrorDialog();
+        }
+
         FunctionVisible();
 
         //編集終了ボタン(＜)の設定
@@ -188,6 +193,26 @@ public class PicEditorActivity  extends AppCompatActivity {
         lp.gravity = Gravity.TOP;      //画面上部に
         dialog.getWindow().setAttributes(lp);
         dialog.show(); //ここでad.show();とすると通常の表示になってしまう
+    }
+
+    //エラーダイアログ
+    private void EditErrorDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //ダイアログのタイトルを設定
+        builder.setTitle("エラーメッセージ");
+        //ダイアログのメッセージを設定
+        builder.setMessage("ファイルの読み込みに失敗しました。\nお絵描きモードに移行します。");
+        //「はい」をタッチしたときの処理
+        builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int idx) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        //ダイアログを表示する
+        dialog.show();
     }
 
     // 機能表示・非表示

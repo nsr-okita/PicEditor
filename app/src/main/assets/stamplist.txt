@@ -1,6 +1,6 @@
 face.png
 nikukyu.png
-diamond.png
+jewel.png
 heart.png
 star.png
 waku.png
